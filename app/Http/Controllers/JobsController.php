@@ -83,10 +83,12 @@ class JobsController extends Controller
         $request->validate([
             'nama'=>'required',
         ]);
-        $data = [
-            'name' => $request->nama,
-        ];
-        Jobs::where('id_jobs',$id)->update($data);
+        $jobs = new Jobs([
+            'name' => $request->input('nama')
+        ]);
+        $jobs->save();
+
+        Jobs::where('id_jobs',$id)->update($jobs);
         return redirect('jobs');
     }
 
